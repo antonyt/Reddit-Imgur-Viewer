@@ -34,7 +34,6 @@ public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitm
 	if (bitmap == null) {
 	    getLoaderManager().restartLoader(0, null, this);
 	}
-	
     }
 
     @Override
@@ -43,7 +42,7 @@ public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitm
     }
 
     @Override
-    public void onLoadFinished(Loader<Bitmap> loader, Bitmap bitmap) {
+    public void onLoadFinished(Loader<Bitmap> arg0, Bitmap bitmap) {
 	image.setBitmap(bitmap);
 	imageView.setImageBitmap(bitmap);
     }

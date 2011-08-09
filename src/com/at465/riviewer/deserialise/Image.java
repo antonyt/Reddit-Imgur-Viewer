@@ -1,7 +1,5 @@
 package com.at465.riviewer.deserialise;
 
-import java.lang.ref.SoftReference;
-
 import android.graphics.Bitmap;
 
 public class Image {
@@ -21,7 +19,7 @@ public class Image {
     private String created;
     private int score;
     private String date;
-    private SoftReference<Bitmap> bitmap = new SoftReference<Bitmap>(null);
+    private Bitmap bitmap;
 
     public void setHash(String hash) {
 	this.hash = hash;
@@ -40,11 +38,11 @@ public class Image {
     }
 
     public void setBitmap(Bitmap bitmap) {
-	this.bitmap = new SoftReference<Bitmap>(bitmap);
+	this.bitmap = bitmap;
     }
 
     public Bitmap getBitmap() {
-	return bitmap.get();
+	return bitmap;
     }
 
     public void setExt(String ext) {
