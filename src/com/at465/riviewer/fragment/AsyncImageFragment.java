@@ -1,5 +1,9 @@
 package com.at465.riviewer.fragment;
 
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.at465.riviewer.deserialise.Image;
-import com.at465.riviewer.download.CachedImageLoader;
+import com.at465.riviewer.deserialise.ImageResponseHandler;
+import com.at465.riviewer.download.HttpLoader;
 import com.at465.riviewer.view.LoadingImageView;
 
 public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitmap> {
+    private static final String BASE_URL = "http://api.imgur.com/%sl%s";
     private ImageView imageView;
     private Image image;
 
@@ -38,7 +44,9 @@ public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitm
 
     @Override
     public Loader<Bitmap> onCreateLoader(int arg0, Bundle arg1) {
-	return new CachedImageLoader(getActivity(), image);
+	HttpUriRequest request = new HttpGet(String.format(BASE_URL, image.getHash(), image.getExt()));
+	ResponseHandler<Bitmap> handler = new ImageResponseHandler();
+	return new HttpLoader<Bitmap>(getActivity(), request, handler);
     }
 
     @Override
