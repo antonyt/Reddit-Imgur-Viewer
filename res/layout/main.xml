@@ -13,7 +13,7 @@
 		android:id="@+id/title" />
 
 	<fragment
-		class="com.at465.riviewer.view.AsyncImageFragment"
+		class="com.at465.riviewer.fragment.AsyncImageFragment"
 		android:id="@+id/image"
 		android:layout_weight="1"
 		android:layout_width="fill_parent"

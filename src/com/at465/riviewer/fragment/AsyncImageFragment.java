@@ -1,4 +1,4 @@
-package com.at465.riviewer.view;
+package com.at465.riviewer.fragment;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -18,6 +18,7 @@ import android.widget.ImageView.ScaleType;
 import com.at465.riviewer.deserialise.Image;
 import com.at465.riviewer.deserialise.ImageResponseHandler;
 import com.at465.riviewer.download.HttpLoader;
+import com.at465.riviewer.view.LoadingImageView;
 
 public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitmap> {
     private static final String BASE_URL = "http://api.imgur.com/%sl%s";

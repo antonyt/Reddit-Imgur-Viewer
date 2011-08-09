@@ -19,7 +19,7 @@ import com.at465.riviewer.deserialise.Category;
 import com.at465.riviewer.deserialise.GsonResponseHandler;
 import com.at465.riviewer.deserialise.Image;
 import com.at465.riviewer.download.HttpLoader;
-import com.at465.riviewer.view.AsyncImageFragment;
+import com.at465.riviewer.fragment.AsyncImageFragment;
 
 public class ViewerActivity extends FragmentActivity {
     private TextView title;
