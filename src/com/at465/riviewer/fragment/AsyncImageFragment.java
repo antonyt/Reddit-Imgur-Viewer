@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import com.at465.riviewer.deserialise.Image;
 
 public class AsyncImageFragment extends Fragment {
-    private static final String BASE_URL = "http://api.imgur.com/%sl%s";
+    private static final String BASE_URL = "http://api.imgur.com/%s%s";
     private Image image;
     private WebView webView;
     private float density;
