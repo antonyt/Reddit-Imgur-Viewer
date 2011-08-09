@@ -38,11 +38,10 @@ public class AsyncImageFragment extends Fragment {
     
     public void loadImage(Image image) {
 	webView.stopLoading();
+	webView.clearView();
 	this.image = image;
 	String url = String.format(BASE_URL, image.getHash(), image.getExt());
-	
 
-	
 	float width = webView.getWidth() / density;
 	float height = webView.getHeight() / density;
 	String style = "<head><style>* {margin:0;padding:0;}</style></head>";
