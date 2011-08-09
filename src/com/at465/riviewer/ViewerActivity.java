@@ -13,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.at465.riviewer.deserialise.Category;
@@ -29,14 +30,18 @@ public class ViewerActivity extends FragmentActivity {
 
     private AsyncImageFragment imageFragment;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 	setContentView(R.layout.main);
 	
 	if (savedInstanceState != null) {
 	    i = savedInstanceState.getInt("imageIndex");
 	}
+	
 	
 	title = (TextView) findViewById(R.id.title);
 	imageFragment = (AsyncImageFragment) getSupportFragmentManager().findFragmentById(R.id.image);
@@ -79,6 +84,7 @@ public class ViewerActivity extends FragmentActivity {
 	    images = data.getGallery().getImages();
 	    title.setText(images.get(i).getTitle());
 	    imageFragment.loadImage(images.get(i));
+	    
 	}
 
 	@Override
