@@ -21,11 +21,12 @@ public class AsyncImageFragment extends Fragment {
 	webView.setBackgroundColor(0);
 	webView.getSettings().setBuiltInZoomControls(true);
 	webView.getSettings().setJavaScriptEnabled(true);
+	webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 	return webView;
     }
 
     
-    public void loadImage(Image image) {
+    public void loadImage(Image image) {	
 	this.image = image;
 	webView.stopLoading();
 	String url = String.format(BASE_URL, image.getHash(), image.getExt());
