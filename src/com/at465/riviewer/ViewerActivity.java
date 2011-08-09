@@ -25,29 +25,27 @@ public class ViewerActivity extends FragmentActivity {
     private TextView title;
 
     private List<Image> images;
-    private int i;
+    private int imageIndex;
 
     private AsyncImageFragment imageFragment;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.main);
-	
+
 	if (savedInstanceState != null) {
-	    i = savedInstanceState.getInt("imageIndex");
+	    imageIndex = savedInstanceState.getInt("imageIndex");
 	}
-	
-	
+
 	title = (TextView) findViewById(R.id.title);
 	imageFragment = (AsyncImageFragment) getSupportFragmentManager().findFragmentById(R.id.image);
 
 	findViewById(R.id.next).setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		i = Math.min(images.size()-1, i+1);
-		Image currentImage = images.get(i);
+		imageIndex = Math.min(images.size() - 1, imageIndex + 1);
+		Image currentImage = images.get(imageIndex);
 		title.setText(currentImage.getTitle());
 		imageFragment.loadImage(currentImage);
 	    }
@@ -56,8 +54,8 @@ public class ViewerActivity extends FragmentActivity {
 	findViewById(R.id.prev).setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		i = Math.max(0, i-1);
-		Image currentImage = images.get(i);
+		imageIndex = Math.max(0, imageIndex - 1);
+		Image currentImage = images.get(imageIndex);
 		title.setText(currentImage.getTitle());
 		imageFragment.loadImage(currentImage);
 	    }
@@ -79,20 +77,20 @@ public class ViewerActivity extends FragmentActivity {
 	public void onLoadFinished(Loader<Category> loader, Category data) {
 	    Log.d("ViewerActivity", "onLoadFinished ");
 	    images = data.getGallery().getImages();
-	    title.setText(images.get(i).getTitle());
-	    imageFragment.loadImage(images.get(i));
-	    
+	    title.setText(images.get(imageIndex).getTitle());
+	    imageFragment.loadImage(images.get(imageIndex));
+
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Category> arg0) {
 	}
     };
-    
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-	outState.putInt("imageIndex", i);
+	outState.putInt("imageIndex", imageIndex);
 	super.onSaveInstanceState(outState);
     };
-    
+
 }
