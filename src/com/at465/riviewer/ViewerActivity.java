@@ -13,7 +13,6 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.at465.riviewer.deserialise.Category;
@@ -34,8 +33,6 @@ public class ViewerActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 	setContentView(R.layout.main);
 	
 	if (savedInstanceState != null) {
