@@ -33,6 +33,7 @@ public class AsyncImageFragment extends Fragment implements LoaderCallbacks<Bitm
     }
 
     public void loadImage(Image image) {
+	getLoaderManager().destroyLoader(0);
 	this.image = image;
 	Bitmap bitmap = image.getBitmap();
 	imageView.setImageBitmap(bitmap);
