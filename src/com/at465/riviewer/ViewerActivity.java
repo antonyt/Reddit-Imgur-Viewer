@@ -76,7 +76,6 @@ public class ViewerActivity extends FragmentActivity {
 	@Override
 	public void onLoadFinished(Loader<Category> loader, Category data) {
 	    Log.d("ViewerActivity", "onLoadFinished ");
-	    title.setText("Total images: " + data.getGallery().getCount());
 	    images = data.getGallery().getImages();
 	    title.setText(images.get(i).getTitle());
 	    imageFragment.loadImage(images.get(i));
