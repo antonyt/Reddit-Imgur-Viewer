@@ -1,14 +1,17 @@
 package com.at465.riviewer.view;
 
+import android.R;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.at465.riviewer.deserialise.Image;
 
@@ -64,7 +67,9 @@ public class ImageWebView extends WebView {
 		    d.dismiss();
 		}
 		Log.d("ImageWebView.JavascriptInterface", "SHOWLoadingDialog ");
-		d = ProgressDialog.show(getContext(), "", "Loading...");
+		d = new Dialog(getContext(), R.style.Theme_Panel);
+		d.setContentView(new ProgressBar(getContext()));
+		d.show();
 	    } else {
 		Log.d("ImageWebView.JavascriptInterface", "HIDELoadingDialog ");
 		if (d != null) {
