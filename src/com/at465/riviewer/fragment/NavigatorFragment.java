@@ -23,39 +23,41 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	categoryDataFragment.setTargetFragment(this, 0);
 	getFragmentManager().beginTransaction().add(categoryDataFragment, "category").commit();
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View v = inflater.inflate(R.layout.navigator_fragment, null);
-	
+
 	nextButton = (Button) v.findViewById(R.id.next);
 	nextButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		AsyncImageFragment imageFragment = (AsyncImageFragment) getTargetFragment();
-		imageFragment.loadImage(categoryDataFragment.getNextImage());
+		getImageFragment().loadImage(categoryDataFragment.getNextImage());
 	    }
 	});
-	
+
 	prevButton = (Button) v.findViewById(R.id.prev);
 	prevButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		AsyncImageFragment imageFragment = (AsyncImageFragment) getTargetFragment();
-		imageFragment.loadImage(categoryDataFragment.getPrevImage());
+		getImageFragment().loadImage(categoryDataFragment.getPrevImage());
 	    }
 	});
-	
+
 	return v;
+    }
+
+    private AsyncImageFragment getImageFragment() {
+	return (AsyncImageFragment) getTargetFragment();
     }
 
     @Override
     public void initialLoadComplete(boolean hasImages) {
 	if (hasImages) {
-	    AsyncImageFragment imageFragment = (AsyncImageFragment) getTargetFragment();
-	    imageFragment.loadImage(categoryDataFragment.getImage());
+	    getImageFragment().loadImage(categoryDataFragment.getImage());
 	} else {
 	    new AlertDialog.Builder(getActivity()).setTitle("No images to show!").show();
 	}
     }
+
 }
