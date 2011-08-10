@@ -38,6 +38,11 @@ public class AsyncImageFragment extends Fragment {
 
     
     public void loadImage(Image image, AnimationMode animMode) {
+	if (this.image == image) {
+	    return;
+	}
+	this.image = image;
+	
 	title.setText(Html.fromHtml(image.getTitle()));
 	webView.loadImage(image, animMode);
     }
