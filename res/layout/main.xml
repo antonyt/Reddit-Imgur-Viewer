@@ -13,25 +13,12 @@
 		android:layout_height="0px"
 		android:layout_weight="1" />
 
-
-	<LinearLayout
-		android:layout_width="wrap_content"
+		<fragment
+		class="com.at465.riviewer.fragment.NavigatorFragment"
+		android:id="@+id/navigator"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal">
-
-		<Button
-			android:id="@+id/prev"
-			android:layout_width="150dp"
-			android:layout_height="wrap_content"
-			android:text="Prev" />
-
-		<Button
-			android:id="@+id/next"
-			android:layout_width="150dp"
-			android:layout_height="wrap_content"
-			android:text="Next" />
-
-	</LinearLayout>
+		/>
 
 
 </LinearLayout>

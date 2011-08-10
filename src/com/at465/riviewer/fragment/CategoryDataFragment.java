@@ -19,7 +19,7 @@ import com.at465.riviewer.deserialise.GsonResponseHandler;
 import com.at465.riviewer.deserialise.Image;
 import com.at465.riviewer.download.HttpLoader;
 
-public class CategoryFragment extends Fragment implements LoaderCallbacks<Category> {
+public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Category> {
     private static final String BASE_URL = "http://imgur.com/r/%s/hot/page/%s.json";
     private List<Image> images = Collections.synchronizedList(new ArrayList<Image>());
     private int currentImageIndex = 0;
@@ -45,7 +45,7 @@ public class CategoryFragment extends Fragment implements LoaderCallbacks<Catego
     public void onLoadFinished(Loader<Category> loader, Category data) {
 	Log.d("ViewerActivity", "onLoadFinished ");
 	List<Image> newImages = data.getGallery().getImages();
-	Listener listener = (Listener) getActivity();
+	Listener listener = (Listener) getTargetFragment();
 
 	boolean hasNewImages = newImages != null && newImages.size() > 0;
 	boolean firstTime = images.size() == 0;
