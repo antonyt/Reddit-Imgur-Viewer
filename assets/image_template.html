@@ -19,22 +19,35 @@ img {
 <script>
 	window.onload = function() {
 		image = document.getElementById('image');
+		loading = document.getElementById('loading');
 		image.onload = function() {
-			image.style.display = 'block';
+			showLoading(false);
 		};
 	};
 
 	function loadImage(src, maxWidth, maxHeight) {
-		image.style.display = 'none';
+		showLoading(true);
 		image.src = ''; // force reload
 		image.src = src;
 		image.style.maxWidth = maxWidth;
 		image.style.maxHeight = maxHeight;
 	}
+	
+	function showLoading(isLoading) {
+		if (isLoading) {
+			image.style.display = 'none';
+			loading.style.display = 'block';
+		} else {
+			image.style.display = 'block';
+			loading.style.display = 'none';
+		}
+	}
+	
 </script>
 </head>
 
 <body>
 <img id='image'>
+<img id='loading' src='loading.gif'>
 </body>
 </html>
