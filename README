@@ -1,1 +1,1 @@
-antony
+Android application making use of the Imgur API to download images and display them in a gallery-style fashion. Downloads images according to subreddit. Supports pinch-zoom and dragging.
