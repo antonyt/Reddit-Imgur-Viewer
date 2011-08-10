@@ -75,8 +75,6 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     public Image getNextImage() {
 	boolean nearTheEnd = (images.size() - currentImageIndex) < 10;
 	boolean onLastPage = currentPage == LAST_PAGE;
-	Log.d("CategoryFragment", "onLastPage =  " + onLastPage);
-	Log.d("CategoryFragment", "nearTheEnd =  " + nearTheEnd);
 	
 	if (!loadInProgress && !onLastPage && nearTheEnd) {
 	    loadInProgress = true;

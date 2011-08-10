@@ -1,6 +1,7 @@
 Android application making use of the Imgur API to download images and display them in a gallery-style fashion. Downloads images according to subreddit. Supports pinch-zoom and dragging.
 
 - Loaders/HttpClient to download the image listing
+- Deserialise JSON with GSON library
 - WebView to display image and support zooming
 - Local HTML template created to allow quick image injection and positioning
 - Organised into Fragments
