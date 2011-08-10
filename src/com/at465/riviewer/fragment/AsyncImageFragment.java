@@ -15,6 +15,7 @@ import com.at465.riviewer.deserialise.Image;
 public class AsyncImageFragment extends Fragment {
     private static final String BASE_URL = "http://api.imgur.com/%s%s";
     private static final String TEMPLATE_URL = "file:///android_asset/image_template.html";
+    private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
     private Image image;
     private WebView webView;
     private float density;
@@ -53,10 +54,9 @@ public class AsyncImageFragment extends Fragment {
 	String url = String.format(BASE_URL, image.getHash(), image.getExt());
 	float width = webView.getWidth() / density;
 	float height = webView.getHeight() / density;
-	String s = "javascript: loadImage('%s', %s, %s);";
-	s = String.format(s, url, width, height);
-	Log.d("AsyncImageFragment", "loadImage " + s);
-	webView.loadUrl(s);
+	String loadImageJS = String.format(LOAD_IMAGE, url, width, height);
+	Log.d("AsyncImageFragment", "loadImage: " + loadImageJS);
+	webView.loadUrl(loadImageJS);
     }
     
     
