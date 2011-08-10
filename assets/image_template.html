@@ -40,19 +40,21 @@ img {
 	function showLoading(isLoading) {
 		if (isLoading) {
 			image.style.display = 'none';
-			loading.style.display = 'block';
-			loading.src = 'loading.gif';
+			//loading.style.display = 'block';
+			//loading.src = 'loading.gif';
 		} else {
 			image.style.display = 'block';
-			loading.style.display = 'none';
-			loading.src = '#';
+			//loading.style.display = 'none';
+			//loading.src = '#';
+
 		}
+		Loading.showLoadingDialog(isLoading);
 	}
 </script>
 </head>
 
 <body>
-<img id='image'/>
-<img id='loading' src='loading.gif'/>
+<img id='image' />
+<img id='loading'/>
 </body>
 </html>

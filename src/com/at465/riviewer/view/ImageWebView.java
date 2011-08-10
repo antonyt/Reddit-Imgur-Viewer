@@ -1,5 +1,7 @@
 package com.at465.riviewer.view;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
@@ -16,30 +18,32 @@ public class ImageWebView extends WebView {
     private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
     private Image image;
     private float density;
-    
-    
+
     public ImageWebView(Context context) {
 	super(context);
 	setBackgroundColor(Color.BLACK);
 	getSettings().setBuiltInZoomControls(true);
 	getSettings().setJavaScriptEnabled(true);
 	setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+	addJavascriptInterface(new JavascriptInterface(), "Loading");
+
 	loadUrl(TEMPLATE_URL);
-	
+
 	DisplayMetrics dm = new DisplayMetrics();
 	WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 	windowManager.getDefaultDisplay().getMetrics(dm);
 	this.density = dm.density;
+
     }
-    
+
     @Override
     protected void onSizeChanged(int w, int h, int ow, int oh) {
-        super.onSizeChanged(w, h, ow, oh);
+	super.onSizeChanged(w, h, ow, oh);
 	if (image != null && w > 0) {
 	    loadImage(image);
 	}
     }
-    
+
     public void loadImage(Image image) {
 	stopLoading();
 	this.image = image;
@@ -50,7 +54,25 @@ public class ImageWebView extends WebView {
 	Log.d("AsyncImageFragment", "loadImage: " + loadImageJS);
 	loadUrl(loadImageJS);
     }
-    
-    
-    
+
+    public class JavascriptInterface {
+	private Dialog d;
+
+	public void showLoadingDialog(boolean showDialog) {
+	    if (showDialog) {
+		if (d != null) {
+		    d.dismiss();
+		}
+		Log.d("ImageWebView.JavascriptInterface", "SHOWLoadingDialog ");
+		d = ProgressDialog.show(getContext(), "", "Loading...");
+	    } else {
+		Log.d("ImageWebView.JavascriptInterface", "HIDELoadingDialog ");
+		if (d != null) {
+		    d.dismiss();
+		    d = null;
+		}
+	    }
+	}
+    }
+
 }
