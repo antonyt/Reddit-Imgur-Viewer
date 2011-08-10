@@ -23,6 +23,9 @@ img {
 		image.onload = function() {
 			showLoading(false);
 		};
+		image.onerror = function() {
+			showLoading(false);
+		};
 	};
 
 	function loadImage(src, maxWidth, maxHeight) {
