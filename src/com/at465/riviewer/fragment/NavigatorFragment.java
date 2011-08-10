@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.at465.riviewer.R;
+import com.at465.riviewer.view.WebViewSwitcher.AnimationMode;
 
 public class NavigatorFragment extends Fragment implements CategoryDataFragment.Listener {
     private Button prevButton;
@@ -32,7 +33,7 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	nextButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		getImageFragment().loadImage(categoryDataFragment.getNextImage());
+		getImageFragment().loadImage(categoryDataFragment.getNextImage(), AnimationMode.FORWARD);
 	    }
 	});
 
@@ -40,7 +41,7 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	prevButton.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-		getImageFragment().loadImage(categoryDataFragment.getPrevImage());
+		getImageFragment().loadImage(categoryDataFragment.getPrevImage(), AnimationMode.BACKWARD);
 	    }
 	});
 
@@ -54,7 +55,7 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
     @Override
     public void initialLoadComplete(boolean hasImages) {
 	if (hasImages) {
-	    getImageFragment().loadImage(categoryDataFragment.getImage());
+	    getImageFragment().loadImage(categoryDataFragment.getImage(), AnimationMode.NONE);
 	} else {
 	    new AlertDialog.Builder(getActivity()).setTitle("No images to show!").show();
 	}
