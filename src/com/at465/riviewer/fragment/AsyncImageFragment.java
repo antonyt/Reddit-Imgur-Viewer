@@ -18,7 +18,7 @@ import com.at465.riviewer.R;
 import com.at465.riviewer.deserialise.Image;
 
 public class AsyncImageFragment extends Fragment {
-    private static final String BASE_URL = "http://api.imgur.com/%s%s";
+    private static final String BASE_URL = "http://api.imgur.com/%sm%s";
     private static final String TEMPLATE_URL = "file:///android_asset/image_template.html";
     private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
     private Image image;
