@@ -1,0 +1,50 @@
+<html>
+<head>
+<style>
+body {
+	background-color: black;
+	color: white;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+h1 {
+	display: none;
+}
+</style>
+
+<script>
+	window.onload = function() {
+		image = document.getElementById('image');
+		image.onload = function() {
+			image.style.display = 'block';
+		};
+	};
+
+	function loadImage(src, maxWidth, maxHeight) {
+		image.style.display = 'none';
+		image.src = ''; // force reload
+		image.src = src;
+		image.style.maxWidth = maxWidth;
+		image.style.maxHeight = maxHeight;
+	}
+</script>
+</head>
+
+<body>
+<h1 id='loading'>Loading...</h1>
+<img id='image'>
+</body>
+</html>
