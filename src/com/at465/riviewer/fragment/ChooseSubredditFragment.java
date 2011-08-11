@@ -16,8 +16,7 @@ import android.widget.ListView;
 
 import com.at465.riviewer.R;
 
-public class ChooseSubredditFragment extends DialogFragment implements OnItemClickListener, TextWatcher,
-	OnClickListener {
+public class ChooseSubredditFragment extends DialogFragment {
     private EditText subredditFilter;
     private ListView subredditList;
     private ArrayAdapter<String> adapter;
@@ -34,19 +33,19 @@ public class ChooseSubredditFragment extends DialogFragment implements OnItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View root = inflater.inflate(R.layout.choose_subreddit, container, false);
-	root.findViewById(R.id.ok_button).setOnClickListener(this);
+	root.findViewById(R.id.ok_button).setOnClickListener(okListener);
 
 	subredditFilter = (EditText) root.findViewById(R.id.subreddit);
-	subredditFilter.addTextChangedListener(this);
+	subredditFilter.addTextChangedListener(watcher);
 	subredditFilter.setSaveEnabled(false);
 
 	subredditList = (ListView) root.findViewById(R.id.subreddit_list);
 	subredditList.setSaveEnabled(false);
-	
+
 	adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1,
 		SUBREDDITS);
 	subredditList.setAdapter(adapter);
-	subredditList.setOnItemClickListener(this);
+	subredditList.setOnItemClickListener(listClickListener);
 	return root;
     }
 
@@ -64,29 +63,34 @@ public class ChooseSubredditFragment extends DialogFragment implements OnItemCli
 	void subredditSelected(String subreddit);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	String selected = adapter.getItem(position);
-	subredditFilter.setText(selected);
-	dismiss();
-    }
+    private OnItemClickListener listClickListener = new OnItemClickListener() {
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	    String selected = adapter.getItem(position);
+	    subredditFilter.setText(selected);
+	    dismiss();
+	}
+    };
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
+    private TextWatcher watcher = new TextWatcher() {
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	}
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    }
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+	}
 
-    @Override
-    public void afterTextChanged(Editable s) {
-	adapter.getFilter().filter(s);
-    }
+	@Override
+	public void afterTextChanged(Editable s) {
+	    adapter.getFilter().filter(s);
+	}
+    };
 
-    @Override
-    public void onClick(View v) {
-	dismiss();
-    }
-
+    private OnClickListener okListener = new OnClickListener() {
+	@Override
+	public void onClick(View v) {
+	    dismiss();
+	}
+    };
 }
