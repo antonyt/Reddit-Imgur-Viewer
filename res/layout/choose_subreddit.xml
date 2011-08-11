@@ -29,6 +29,7 @@
 		android:singleLine="true"
 		android:layout_below="@id/subreddit_label"
 		android:layout_toLeftOf="@id/ok_button"
+		android:imeOptions="actionDone"
 		/>
 
 	<ListView

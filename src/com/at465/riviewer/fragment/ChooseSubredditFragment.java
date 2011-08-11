@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.at465.riviewer.R;
 
@@ -37,6 +41,7 @@ public class ChooseSubredditFragment extends DialogFragment {
 
 	subredditFilter = (EditText) root.findViewById(R.id.subreddit);
 	subredditFilter.addTextChangedListener(watcher);
+	subredditFilter.setOnEditorActionListener(editorActionListener);
 	subredditFilter.setSaveEnabled(false);
 
 	subredditList = (ListView) root.findViewById(R.id.subreddit_list);
@@ -85,6 +90,18 @@ public class ChooseSubredditFragment extends DialogFragment {
 	public void afterTextChanged(Editable s) {
 	    adapter.getFilter().filter(s);
 	}
+    };
+
+    private OnEditorActionListener editorActionListener = new OnEditorActionListener() {
+
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+	    if ((actionId & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE) {
+		dismiss();
+	    }
+	    return false;
+	}
+
     };
 
     private OnClickListener okListener = new OnClickListener() {
