@@ -2,12 +2,10 @@ package com.at465.riviewer.view;
 
 import android.R;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;

@@ -4,8 +4,5 @@
 	<item
 		android:title="@string/subreddit"
 		android:id="@+id/subreddit" />
-	<item
-		android:title="@string/save"
-		android:id="@+id/save" />
 
 </menu>
