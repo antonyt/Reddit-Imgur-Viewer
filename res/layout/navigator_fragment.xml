@@ -10,12 +10,12 @@
 			android:id="@+id/prev"
 			android:layout_width="150dp"
 			android:layout_height="wrap_content"
-			android:text="Prev" />
+			android:text="@string/prev" />
 
 		<Button
 			android:id="@+id/next"
 			android:layout_width="150dp"
 			android:layout_height="wrap_content"
-			android:text="Next" />
+			android:text="@string/next" />
 
 </LinearLayout>
