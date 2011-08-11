@@ -16,12 +16,14 @@ import android.widget.ListView;
 
 import com.at465.riviewer.R;
 
-public class ChooseSubredditFragment extends DialogFragment implements OnItemClickListener, TextWatcher, OnClickListener {
+public class ChooseSubredditFragment extends DialogFragment implements OnItemClickListener, TextWatcher,
+	OnClickListener {
     private EditText subredditFilter;
     private ListView subredditList;
     private ArrayAdapter<String> adapter;
     private static final String[] SUBREDDITS = new String[] { "pics", "food", "worldnews", "politics", "comics",
-	    "itookapicture", "gaming", "funny" };
+	    "itookapicture", "photography", "gaming", "funny", "aww", "AdviceAnimals", "ragenovels", "gifs", "hot",
+	    "nsfw" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,14 @@ public class ChooseSubredditFragment extends DialogFragment implements OnItemCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View root = inflater.inflate(R.layout.choose_subreddit, container, false);
 	root.findViewById(R.id.ok_button).setOnClickListener(this);
-	
+
 	subredditFilter = (EditText) root.findViewById(R.id.subreddit);
 	subredditFilter.addTextChangedListener(this);
 	subredditFilter.setSaveEnabled(false);
 
 	subredditList = (ListView) root.findViewById(R.id.subreddit_list);
+	subredditList.setSaveEnabled(false);
+	
 	adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1,
 		SUBREDDITS);
 	subredditList.setAdapter(adapter);
