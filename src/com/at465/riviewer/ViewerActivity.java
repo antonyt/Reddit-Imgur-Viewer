@@ -13,9 +13,5 @@ public class ViewerActivity extends FragmentActivity {
 	Fragment navigator = getSupportFragmentManager().findFragmentById(R.id.navigator);
 	Fragment image = getSupportFragmentManager().findFragmentById(R.id.image);
 	navigator.setTargetFragment(image, 0);
-	
     }
-    
-
-
 }

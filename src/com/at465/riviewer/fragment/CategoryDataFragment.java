@@ -13,13 +13,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.at465.riviewer.R;
 import com.at465.riviewer.deserialise.Category;
 import com.at465.riviewer.deserialise.GsonResponseHandler;
 import com.at465.riviewer.deserialise.Image;
 import com.at465.riviewer.download.HttpLoader;
 
-public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Category> {
+public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Category>,
+	ChooseSubredditFragment.Listener {
     private static final String BASE_URL = "http://imgur.com/r/%s/hot/page/%s.json";
     private List<Image> images = Collections.synchronizedList(new ArrayList<Image>());
     private int currentImageIndex = 0;
@@ -27,11 +32,15 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     private static final int LAST_PAGE = -1;
     private String subreddit = "pics";
     private boolean loadInProgress = true;
+    private ChooseSubredditFragment subredditSelector;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	getLoaderManager().initLoader(0, null, this);
+	setHasOptionsMenu(true);
+	subredditSelector = new ChooseSubredditFragment();
+	subredditSelector.setTargetFragment(this, 0);
     }
 
     @Override
@@ -39,6 +48,24 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	HttpUriRequest request = new HttpGet(String.format(BASE_URL, subreddit, currentPage));
 	ResponseHandler<Category> handler = new GsonResponseHandler<Category>(Category.class);
 	return new HttpLoader<Category>(getActivity(), request, handler);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	super.onCreateOptionsMenu(menu, inflater);
+	inflater.inflate(R.menu.navigator, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	switch (item.getItemId()) {
+	case R.id.subreddit:
+//	    getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, subredditSelector).commit();
+	    subredditSelector.show(getFragmentManager(), "dialog");
+	    return true;
+	default:
+	    return super.onOptionsItemSelected(item);
+	}
     }
 
     @Override
@@ -59,7 +86,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	if (firstTime) {
 	    listener.initialLoadComplete(hasNewImages);
 	}
-	
+
 	loadInProgress = false;
 
     }
@@ -75,7 +102,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     public Image getNextImage() {
 	boolean nearTheEnd = (images.size() - currentImageIndex) < 10;
 	boolean onLastPage = currentPage == LAST_PAGE;
-	
+
 	if (!loadInProgress && !onLastPage && nearTheEnd) {
 	    loadInProgress = true;
 	    currentPage++;
@@ -94,5 +121,18 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 
     public static interface Listener {
 	void initialLoadComplete(boolean hasImages);
+    }
+
+    @Override
+    public void subredditSelected(String subreddit) {
+	if (this.subreddit.equals(subreddit)) {
+	    return;
+	}
+	
+	this.subreddit = subreddit;
+	images.clear();
+	currentImageIndex = 0;
+	currentPage = 0;
+	getLoaderManager().restartLoader(0, null, this);
     }
 }

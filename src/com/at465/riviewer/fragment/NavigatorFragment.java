@@ -4,14 +4,10 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.at465.riviewer.R;
 import com.at465.riviewer.view.WebViewSwitcher.AnimationMode;
@@ -27,25 +23,8 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	categoryDataFragment = new CategoryDataFragment();
 	categoryDataFragment.setTargetFragment(this, 0);
 	getFragmentManager().beginTransaction().add(categoryDataFragment, "category").commit();
-	setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	super.onCreateOptionsMenu(menu, inflater);
-	inflater.inflate(R.menu.navigator, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	switch (item.getItemId()) {
-	case R.id.subreddit:
-	    Toast.makeText(getActivity(), "Subreddit", Toast.LENGTH_SHORT).show();
-	    return true;
-	default:
-	    return super.onOptionsItemSelected(item);
-	}
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
