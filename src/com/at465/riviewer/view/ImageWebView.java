@@ -34,7 +34,6 @@ public class ImageWebView extends WebView {
 	WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 	windowManager.getDefaultDisplay().getMetrics(dm);
 	this.density = dm.density;
-
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,7 +16,7 @@ import android.widget.ListView;
 
 import com.at465.riviewer.R;
 
-public class ChooseSubredditFragment extends DialogFragment implements OnItemClickListener, TextWatcher {
+public class ChooseSubredditFragment extends DialogFragment implements OnItemClickListener, TextWatcher, OnClickListener {
     private EditText subredditFilter;
     private ListView subredditList;
     private ArrayAdapter<String> adapter;
@@ -31,6 +32,8 @@ public class ChooseSubredditFragment extends DialogFragment implements OnItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View root = inflater.inflate(R.layout.choose_subreddit, container, false);
+	root.findViewById(R.id.ok_button).setOnClickListener(this);
+	
 	subredditFilter = (EditText) root.findViewById(R.id.subreddit);
 	subredditFilter.addTextChangedListener(this);
 	subredditFilter.setSaveEnabled(false);
@@ -75,6 +78,11 @@ public class ChooseSubredditFragment extends DialogFragment implements OnItemCli
     @Override
     public void afterTextChanged(Editable s) {
 	adapter.getFilter().filter(s);
+    }
+
+    @Override
+    public void onClick(View v) {
+	dismiss();
     }
 
 }
