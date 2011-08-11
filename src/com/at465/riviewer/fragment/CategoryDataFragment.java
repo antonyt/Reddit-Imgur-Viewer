@@ -8,6 +8,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -33,6 +34,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     private String subreddit = "pics";
     private boolean loadInProgress = true;
     private ChooseSubredditFragment subredditSelector;
+    private ProgressDialog loadingDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 
     @Override
     public Loader<Category> onCreateLoader(int arg0, Bundle arg1) {
+	if (images.size() == 0) {
+	    loadingDialog = ProgressDialog.show(getActivity(), "", "Loading...");
+	}
 	HttpUriRequest request = new HttpGet(String.format(BASE_URL, subreddit, currentPage));
 	ResponseHandler<Category> handler = new GsonResponseHandler<Category>(Category.class);
 	return new HttpLoader<Category>(getActivity(), request, handler);
@@ -71,6 +76,9 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     @Override
     public void onLoadFinished(Loader<Category> loader, Category data) {
 	Log.d("ViewerActivity", "onLoadFinished ");
+	if (images.size() == 0) {
+	    loadingDialog.dismiss();
+	}
 	List<Image> newImages = data.getGallery().getImages();
 	Listener listener = (Listener) getTargetFragment();
 
