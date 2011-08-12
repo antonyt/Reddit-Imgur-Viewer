@@ -69,6 +69,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	switch (item.getItemId()) {
 	case R.id.subreddit:
 	    subredditSelector.show(getFragmentManager(), "dialog");
+	    return true;
 	case R.id.reddit:
 	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com" + getImage().getPermalink()));
 	    startActivity(viewIntent);
