@@ -26,8 +26,8 @@ public class ChooseSubredditFragment extends DialogFragment {
     private EditText subredditFilter;
     private ListView subredditList;
     private ArrayAdapter<String> adapter;
-    private static final String[] SUBREDDITS = new String[] { "pics", "food", "worldnews", "politics", "comics",
-	    "itookapicture", "photography", "gaming", "funny", "aww", "AdviceAnimals", "ragenovels", "gifs", "nsfw" };
+    private static final String[] SUBREDDITS = new String[] { "pics", "funny", "food", "comics", "gifs", "worldnews",
+	    "politics", "itookapicture", "photography", "gaming", "aww", "AdviceAnimals", "ragenovels", "nsfw" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,17 @@ public class ChooseSubredditFragment extends DialogFragment {
 	subredditList = (ListView) root.findViewById(R.id.subreddit_list);
 	subredditList.setSaveEnabled(false);
 
-	adapter = new StripeArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1,
-		SUBREDDITS);
+	adapter = new StripeArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+		android.R.id.text1, SUBREDDITS);
 	subredditList.setAdapter(adapter);
 	subredditList.setOnItemClickListener(listClickListener);
 	return root;
     }
-    
+
     @Override
     public void onResume() {
-        super.onResume();
-        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+	super.onResume();
+	getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override
