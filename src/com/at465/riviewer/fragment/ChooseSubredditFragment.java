@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.at465.riviewer.R;
+import com.at465.riviewer.view.StripeArrayAdapter;
 
 public class ChooseSubredditFragment extends DialogFragment {
     private EditText subredditFilter;
@@ -46,7 +47,7 @@ public class ChooseSubredditFragment extends DialogFragment {
 	subredditList = (ListView) root.findViewById(R.id.subreddit_list);
 	subredditList.setSaveEnabled(false);
 
-	adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1,
+	adapter = new StripeArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1,
 		SUBREDDITS);
 	subredditList.setAdapter(adapter);
 	subredditList.setOnItemClickListener(listClickListener);
