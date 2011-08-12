@@ -1,34 +1,41 @@
 package com.at465.riviewer.view;
 
-import android.R;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
+import com.at465.riviewer.R;
 import com.at465.riviewer.deserialise.Image;
 
-public class ImageWebView extends WebView {
+public class ImageWebView extends RelativeLayout {
     private static final String BASE_URL = "http://api.imgur.com/%s%s";
     private static final String TEMPLATE_URL = "file:///android_asset/image_template.html";
     private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
     private Image image;
     private float density;
+    private WebView webview;
+    private ProgressBar loading;
 
     public ImageWebView(Context context) {
 	super(context);
-	setBackgroundColor(Color.BLACK);
-	getSettings().setBuiltInZoomControls(true);
-	getSettings().setJavaScriptEnabled(true);
-	setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-	addJavascriptInterface(new JavascriptInterface(), "Loading");
+	LayoutInflater.from(context).inflate(R.layout.image_web_view, this, true);
+	loading = (ProgressBar) findViewById(R.id.progress);
 
-	loadUrl(TEMPLATE_URL);
+	webview = (WebView) findViewById(R.id.webview);
+	webview.setBackgroundColor(Color.BLACK);
+	webview.getSettings().setBuiltInZoomControls(true);
+	webview.getSettings().setJavaScriptEnabled(true);
+	webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+	webview.addJavascriptInterface(new JavascriptInterface(), "Loading");
+
+	webview.loadUrl(TEMPLATE_URL);
 
 	DisplayMetrics dm = new DisplayMetrics();
 	WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -45,36 +52,40 @@ public class ImageWebView extends WebView {
     }
 
     public void loadImage(Image image) {
-	stopLoading();
+	webview.stopLoading();
 	this.image = image;
 	String url = String.format(BASE_URL, image.getHash(), image.getExt());
 	float width = getWidth() / density;
 	float height = getHeight() / density;
 	String loadImageJS = String.format(LOAD_IMAGE, url, width, height);
-	Log.d("AsyncImageFragment", "loadImage: " + loadImageJS);
-	loadUrl(loadImageJS);
+	Log.d("ImageWebView", "loadImage: " + loadImageJS);
+	webview.loadUrl(loadImageJS);
     }
 
     public class JavascriptInterface {
-	private Dialog d;
-
 	public void showLoadingDialog(boolean showDialog) {
 	    if (showDialog) {
-		if (d != null) {
-		    d.dismiss();
-		}
-		Log.d("ImageWebView.JavascriptInterface", "SHOWLoadingDialog ");
-		d = new Dialog(getContext(), R.style.Theme_Panel);
-		d.setContentView(new ProgressBar(getContext()));
-		d.show();
+		post(showDialogRunnable);
 	    } else {
-		Log.d("ImageWebView.JavascriptInterface", "HIDELoadingDialog ");
-		if (d != null) {
-		    d.dismiss();
-		    d = null;
-		}
+		post(hideDialogRunnable);
 	    }
 	}
-    }
+    };
+
+    private Runnable showDialogRunnable = new Runnable() {
+	@Override
+	public void run() {
+	    webview.setVisibility(INVISIBLE);
+	    loading.setVisibility(VISIBLE);
+	}
+    };
+
+    private Runnable hideDialogRunnable = new Runnable() {
+	@Override
+	public void run() {
+	    webview.setVisibility(VISIBLE);
+	    loading.setVisibility(INVISIBLE);
+	}
+    };
 
 }
