@@ -25,7 +25,6 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	getFragmentManager().beginTransaction().add(categoryDataFragment, "category").commit();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View v = inflater.inflate(R.layout.navigator_fragment, null);
