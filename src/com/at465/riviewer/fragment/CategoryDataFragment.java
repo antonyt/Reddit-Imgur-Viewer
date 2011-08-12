@@ -78,6 +78,12 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	if (images.size() == 0) {
 	    loadingDialog.dismiss();
 	}
+	
+	if (data == null) {
+	    Log.d("CategoryDataFragment", "failed to load index!");
+	    return;
+	}
+	
 	List<Image> newImages = data.getGallery().getImages();
 	Listener listener = (Listener) getTargetFragment();
 
