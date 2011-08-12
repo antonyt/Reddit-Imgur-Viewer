@@ -48,7 +48,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     @Override
     public Loader<Category> onCreateLoader(int arg0, Bundle arg1) {
 	if (images.size() == 0) {
-	    loadingDialog = ProgressDialog.show(getActivity(), "", "Loading...");
+	    loadingDialog = ProgressDialog.show(getActivity(), "", getActivity().getString(R.string.loading), true, false);
 	}
 	HttpUriRequest request = new HttpGet(String.format(BASE_URL, subreddit, currentPage));
 	ResponseHandler<Category> handler = new GsonResponseHandler<Category>(Category.class);
@@ -65,7 +65,6 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.subreddit:
-//	    getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, subredditSelector).commit();
 	    subredditSelector.show(getFragmentManager(), "dialog");
 	    return true;
 	default:
