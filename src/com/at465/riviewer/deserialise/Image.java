@@ -55,4 +55,12 @@ public class Image {
 	return ext;
     }
 
+    public void setPermalink(String permalink) {
+	this.permalink = permalink;
+    }
+
+    public String getPermalink() {
+	return permalink;
+    }
+
 }

@@ -9,6 +9,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -48,7 +50,8 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     @Override
     public Loader<Category> onCreateLoader(int arg0, Bundle arg1) {
 	if (images.size() == 0) {
-	    loadingDialog = ProgressDialog.show(getActivity(), "", getActivity().getString(R.string.loading), true, false);
+	    loadingDialog = ProgressDialog.show(getActivity(), "", getActivity().getString(R.string.loading), true,
+		    false);
 	}
 	HttpUriRequest request = new HttpGet(String.format(BASE_URL, subreddit, currentPage));
 	ResponseHandler<Category> handler = new GsonResponseHandler<Category>(Category.class);
@@ -66,6 +69,9 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	switch (item.getItemId()) {
 	case R.id.subreddit:
 	    subredditSelector.show(getFragmentManager(), "dialog");
+	case R.id.reddit:
+	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com" + getImage().getPermalink()));
+	    startActivity(viewIntent);
 	    return true;
 	default:
 	    return super.onOptionsItemSelected(item);
@@ -78,14 +84,15 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	if (images.size() == 0) {
 	    loadingDialog.dismiss();
 	}
-	
+	Listener listener = (Listener) getTargetFragment();
+
 	if (data == null) {
 	    Log.d("CategoryDataFragment", "failed to load index!");
+	    listener.initialLoadComplete(false);
 	    return;
 	}
-	
+
 	List<Image> newImages = data.getGallery().getImages();
-	Listener listener = (Listener) getTargetFragment();
 
 	boolean hasNewImages = newImages != null && newImages.size() > 0;
 	boolean firstTime = images.size() == 0;
@@ -141,7 +148,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	if (this.subreddit.equals(subreddit)) {
 	    return;
 	}
-	
+
 	this.subreddit = subreddit;
 	images.clear();
 	currentImageIndex = 0;

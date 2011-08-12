@@ -5,4 +5,7 @@
 		android:title="@string/subreddit"
 		android:id="@+id/subreddit" />
 
+	<item
+		android:title="@string/view_on_reddit"
+		android:id="@+id/reddit" />
 </menu>
