@@ -93,7 +93,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    return;
 	}
 
-	List<Image> newImages = data.getGallery().getImages();
+	List<Image> newImages = data.getGallery();
 
 	boolean hasNewImages = newImages != null && newImages.size() > 0;
 	boolean firstTime = images.size() == 0;
