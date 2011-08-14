@@ -27,6 +27,7 @@
 					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name="EditPreferencesActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
 
 	</application>
 </manifest>

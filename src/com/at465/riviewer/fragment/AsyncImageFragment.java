@@ -16,7 +16,6 @@ import com.at465.riviewer.view.WebViewSwitcher;
 import com.at465.riviewer.view.WebViewSwitcher.AnimationMode;
 
 public class AsyncImageFragment extends Fragment {
-    private Image image;
     private WebViewSwitcher webView;
     private TextView title;
 
@@ -38,14 +37,12 @@ public class AsyncImageFragment extends Fragment {
 
     
     public void loadImage(Image image, AnimationMode animMode) {
-	if (this.image == image) {
-	    return;
+	if (image == null) {
+	    title.setText("");
+	} else {
+	    title.setText(Html.fromHtml(image.getTitle()));
 	}
-	this.image = image;
-	
-	title.setText(Html.fromHtml(image.getTitle()));
 	webView.loadImage(image, animMode);
     }
-    
     
 }

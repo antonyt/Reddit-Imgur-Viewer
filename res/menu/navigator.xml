@@ -3,9 +3,16 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
 		android:title="@string/subreddit"
+		android:icon="@android:drawable/ic_menu_gallery"
 		android:id="@+id/subreddit" />
 
 	<item
 		android:title="@string/view_on_reddit"
+		android:icon="@android:drawable/ic_menu_info_details"
 		android:id="@+id/reddit" />
+		
+			<item
+		android:title="@string/edit_preferences"
+		android:icon="@android:drawable/ic_menu_preferences"
+		android:id="@+id/preferences" />
 </menu>

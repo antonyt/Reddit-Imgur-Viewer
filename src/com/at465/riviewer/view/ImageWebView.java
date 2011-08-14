@@ -2,6 +2,7 @@ package com.at465.riviewer.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +12,12 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.at465.riviewer.EditPreferencesActivity;
 import com.at465.riviewer.R;
 import com.at465.riviewer.deserialise.Image;
 
 public class ImageWebView extends RelativeLayout {
-    private static final String BASE_URL = "http://api.imgur.com/%s%s";
+    private static final String BASE_URL = "http://api.imgur.com/%s%s%s";
     private static final String TEMPLATE_URL = "file:///android_asset/image_template.html";
     private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
     private Image image;
@@ -54,12 +56,19 @@ public class ImageWebView extends RelativeLayout {
     public void loadImage(Image image) {
 	webview.stopLoading();
 	this.image = image;
-	String url = String.format(BASE_URL, image.getHash(), image.getExt());
-	float width = getWidth() / density;
-	float height = getHeight() / density;
-	String loadImageJS = String.format(LOAD_IMAGE, url, width, height);
-	Log.d("ImageWebView", "loadImage: " + loadImageJS);
-	webview.loadUrl(loadImageJS);
+
+	if (image == null) {
+	    webview.clearView();
+	} else {
+	    String imageSize = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(
+		    EditPreferencesActivity.IMAGE_SIZE_KEY, "");
+	    String url = String.format(BASE_URL, image.getHash(), imageSize, image.getExt());
+	    float width = getWidth() / density;
+	    float height = getHeight() / density;
+	    String loadImageJS = String.format(LOAD_IMAGE, url, width, height);
+	    Log.d("ImageWebView", "loadImage: " + loadImageJS);
+	    webview.loadUrl(loadImageJS);
+	}
     }
 
     public class JavascriptInterface {

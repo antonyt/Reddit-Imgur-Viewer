@@ -1,0 +1,24 @@
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/image_preferences">
+
+		<ListPreference
+			android:key="image_size"
+			android:title="@string/image_size"
+			android:entries="@array/image_size"
+			android:entryValues="@array/image_size_key"
+			android:defaultValue="l" />
+	</PreferenceCategory>
+
+
+	<CheckBoxPreference
+		android:key="nsfw"
+		android:title="@string/nsfw_images"
+		android:defaultValue="true"
+		 />
+
+
+
+</PreferenceScreen>

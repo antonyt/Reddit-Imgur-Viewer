@@ -7,4 +7,28 @@
     <string name="next">Next</string>
     <string name="ok">OK</string>
     <string name="loading">Loading...</string>
+    <string name="edit_preferences">Edit Preferences</string>
+    
+    <string name="show_nsfw">Show \'not safe for work\' images.</string>
+    <string name="dont_show_nsfw">Do not show \'not safe for work\' images.</string>
+    
+    <string name="image_size_message">Download images at \'%s\' size.</string>
+    
+    <string-array name="image_size">
+         <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Original</item>
+    </string-array>
+    
+    <string-array name="image_size_key">
+         <item>s</item>
+        <item>m</item>
+        <item>l</item>
+        <item></item>
+    </string-array>
+    
+        <string name="image_preferences">Image Preferences</string>
+        <string name="image_size">Image Size</string>
+        <string name="nsfw_images">NSFW images</string>
 </resources>

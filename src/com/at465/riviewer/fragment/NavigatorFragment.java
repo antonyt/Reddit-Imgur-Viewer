@@ -58,6 +58,7 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	    getImageFragment().loadImage(categoryDataFragment.getImage(), AnimationMode.NONE);
 	} else {
 	    new AlertDialog.Builder(getActivity()).setTitle("No images to show!").show();
+	    getImageFragment().loadImage(null, AnimationMode.NONE);
 	}
     }
 }

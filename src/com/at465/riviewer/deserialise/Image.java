@@ -63,4 +63,12 @@ public class Image {
 	return permalink;
     }
 
+    public void setNsfw(boolean nsfw) {
+	this.nsfw = nsfw;
+    }
+
+    public boolean isNsfw() {
+	return nsfw;
+    }
+
 }
