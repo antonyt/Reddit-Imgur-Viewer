@@ -20,11 +20,6 @@ public class AsyncImageFragment extends Fragment {
     private TextView title;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-    
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	LinearLayout root = (LinearLayout) inflater.inflate(R.layout.image_fragment, null);
 	title = (TextView) root.findViewById(R.id.title);
