@@ -26,8 +26,8 @@ public class ChooseSubredditFragment extends DialogFragment {
     private EditText subredditFilter;
     private ListView subredditList;
     private ArrayAdapter<String> adapter;
-    private static final String[] SUBREDDITS = new String[] { "pics", "funny", "food", "comics", "gifs",
-	    "itookapicture", "idap", "photography", "gaming", "aww", "AdviceAnimals", "ragenovels", "nsfw" };
+    private static final String[] SUBREDDITS = new String[] { "pics", "funny", "food", "comics", "gifs", "WTF",
+	    "itookapicture", "idap", "photography", "gaming", "aww", "AdviceAnimals", "lolcats", "ragenovels", "nsfw" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
