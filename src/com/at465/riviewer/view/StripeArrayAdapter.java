@@ -18,12 +18,13 @@ public class StripeArrayAdapter<T> extends ArrayAdapter<T> {
 	View v = super.getView(position, convertView, parent);
 	TextView tv = (TextView) v.findViewById(android.R.id.text1);
 	tv.setTextColor(Color.BLACK);
-	
+
 	if (position % 2 == 0) {
-	    v.setBackgroundColor(Color.CYAN);
+	    v.setBackgroundColor(0xffeeeeee);
 	} else {
-	    v.setBackgroundColor(Color.LTGRAY);
+	    v.setBackgroundColor(0xffffffff);
 	}
+
 	return v;
     }
 
