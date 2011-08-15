@@ -20,6 +20,7 @@ public class ImageWebView extends RelativeLayout {
     private static final String BASE_URL = "http://api.imgur.com/%s%s%s";
     private static final String TEMPLATE_URL = "file:///android_asset/image_template.html";
     private static final String LOAD_IMAGE = "javascript: loadImage('%s', %s, %s);";
+    private static final String JAVASCRIPT_INTERFACE = "Loading";
     private Image image;
     private float density;
     private WebView webview;
@@ -35,7 +36,7 @@ public class ImageWebView extends RelativeLayout {
 	webview.getSettings().setBuiltInZoomControls(true);
 	webview.getSettings().setJavaScriptEnabled(true);
 	webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-	webview.addJavascriptInterface(new JavascriptInterface(), "Loading");
+	webview.addJavascriptInterface(new JavascriptInterface(), JAVASCRIPT_INTERFACE);
 
 	webview.loadUrl(TEMPLATE_URL);
 
