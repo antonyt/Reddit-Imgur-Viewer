@@ -32,6 +32,7 @@ import com.at465.riviewer.download.HttpLoader;
 public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Category>,
 	ChooseSubredditFragment.Listener {
     private static final String BASE_URL = "http://imgur.com/r/%s/hot/page/%s.json";
+    private static final String REDDIT_URL = "http://www.reddit.com";
 
     public static final int RESULT_NO_CHANGE = 0;
     public static final int RESULT_IMAGE_SIZE_CHANGE = 1;
@@ -93,8 +94,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    subredditSelector.show(getFragmentManager(), "dialog");
 	    return true;
 	case R.id.reddit:
-	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com"
-		    + getImage().getPermalink()));
+	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(REDDIT_URL + getImage().getPermalink()));
 	    startActivity(viewIntent);
 	    return true;
 	case R.id.preferences:
