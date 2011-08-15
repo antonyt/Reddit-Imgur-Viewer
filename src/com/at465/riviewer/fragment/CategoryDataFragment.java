@@ -32,15 +32,15 @@ import com.at465.riviewer.download.HttpLoader;
 public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Category>,
 	ChooseSubredditFragment.Listener {
     private static final String BASE_URL = "http://imgur.com/r/%s/hot/page/%s.json";
-    
+
     public static final int RESULT_NO_CHANGE = 0;
     public static final int RESULT_IMAGE_SIZE_CHANGE = 1;
     public static final int RESULT_NSFW_CHANGE = 2;
-    
+
     private List<Image> images = Collections.synchronizedList(new ArrayList<Image>());
     private List<Image> imagesNoNsfw = Collections.synchronizedList(new ArrayList<Image>());
     private List<Image> imagesCurrent;
-    
+
     private int currentImageIndex = 0;
     private int currentPage = 0;
     private static final int LAST_PAGE = -1;
@@ -55,7 +55,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 
 	boolean showNsfw = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(
 		EditPreferencesActivity.NSFW_KEY, true);
-	imagesCurrent = showNsfw ?  images : imagesNoNsfw;
+	imagesCurrent = showNsfw ? images : imagesNoNsfw;
 	getLoaderManager().initLoader(0, null, this);
 
 	setHasOptionsMenu(true);
@@ -87,9 +87,11 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    subredditSelector.show(getFragmentManager(), "dialog");
 	    return true;
 	case R.id.reddit:
-	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com"
-		    + getImage().getPermalink()));
-	    startActivity(viewIntent);
+	    if (currentImageIndex < images.size()) {
+		Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com"
+			+ getImage().getPermalink()));
+		startActivity(viewIntent);
+	    }
 	    return true;
 	case R.id.preferences:
 	    Intent preferencesIntent = new Intent(getActivity(), EditPreferencesActivity.class);
@@ -149,6 +151,8 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     }
 
     public Image getImage() {
+	getListener().firstImage(currentImageIndex == 0);
+	getListener().lastImage(currentImageIndex == imagesCurrent.size() - 1);
 	return imagesCurrent.get(currentImageIndex);
     }
 
@@ -163,17 +167,26 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    Log.d("CategoryFragment", "LOADING ANOTHER PAGE!!");
 	}
 
-	currentImageIndex = Math.min(imagesCurrent.size() - 1, currentImageIndex + 1);
+	currentImageIndex++;
+	getListener().firstImage(currentImageIndex == 0);
+	getListener().lastImage(currentImageIndex == imagesCurrent.size() - 1);
+
 	return imagesCurrent.get(currentImageIndex);
     }
 
     public Image getPrevImage() {
-	currentImageIndex = Math.max(0, currentImageIndex - 1);
+	currentImageIndex--;
+	getListener().firstImage(currentImageIndex == 0);
+	getListener().lastImage(currentImageIndex == imagesCurrent.size() - 1);
 	return imagesCurrent.get(currentImageIndex);
     }
 
     public static interface Listener {
 	void initialLoadComplete(boolean hasImages);
+
+	void firstImage(boolean isFirst);
+
+	void lastImage(boolean isLast);
     }
 
     @Override
@@ -199,7 +212,9 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    break;
 	case RESULT_IMAGE_SIZE_CHANGE:
 	    // image size changed
-	    getListener().initialLoadComplete(true);
+	    if (currentImageIndex < imagesCurrent.size()) {
+		getListener().initialLoadComplete(true);
+	    }
 	    break;
 	case RESULT_NSFW_CHANGE:
 	    // nsfw changed
@@ -210,9 +225,9 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    if (imagesCurrent.size() > 0) {
 		currentImage = imagesCurrent.get(currentImageIndex);
 	    }
-	    imagesCurrent = showNsfw ?  images : imagesNoNsfw;
+	    imagesCurrent = showNsfw ? images : imagesNoNsfw;
 	    currentImageIndex = imagesCurrent.indexOf(currentImage) == -1 ? 0 : imagesCurrent.indexOf(currentImage);
-	    
+
 	    boolean hasImages = imagesCurrent.size() > 0;
 	    getListener().initialLoadComplete(hasImages);
 	    break;

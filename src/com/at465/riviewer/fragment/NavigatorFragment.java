@@ -57,8 +57,21 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	if (hasImages) {
 	    getImageFragment().loadImage(categoryDataFragment.getImage(), AnimationMode.NONE);
 	} else {
-	    new AlertDialog.Builder(getActivity()).setTitle("No images to show!").show();
+	    new AlertDialog.Builder(getActivity()).setMessage("No images to show! Please select another subreddit.").show();
 	    getImageFragment().loadImage(null, AnimationMode.NONE);
+	    prevButton.setEnabled(false);
+	    nextButton.setEnabled(false);
 	}
+    }
+
+    @Override
+    public void firstImage(boolean isFirst) {
+	prevButton.setEnabled(!isFirst);
+    }
+
+    @Override
+    public void lastImage(boolean isLast) {
+	nextButton.setEnabled(!isLast);
+	
     }
 }
