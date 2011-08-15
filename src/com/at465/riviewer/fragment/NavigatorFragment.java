@@ -57,7 +57,7 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
 	if (hasImages) {
 	    getImageFragment().loadImage(categoryDataFragment.getImage(), AnimationMode.NONE);
 	} else {
-	    new AlertDialog.Builder(getActivity()).setMessage("No images to show! Please select another subreddit.").show();
+	    new AlertDialog.Builder(getActivity()).setMessage(R.string.no_images_message).show();
 	    getImageFragment().loadImage(null, AnimationMode.NONE);
 	    prevButton.setEnabled(false);
 	    nextButton.setEnabled(false);
@@ -72,6 +72,6 @@ public class NavigatorFragment extends Fragment implements CategoryDataFragment.
     @Override
     public void lastImage(boolean isLast) {
 	nextButton.setEnabled(!isLast);
-	
+
     }
 }

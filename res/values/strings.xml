@@ -14,6 +14,8 @@
     
     <string name="image_size_message">Download images at \'%s\' size.</string>
     
+    <string name="no_images_message">No images to show! Please select another subreddit.</string>
+    
     <string-array name="image_size">
          <item>Small</item>
         <item>Medium</item>
