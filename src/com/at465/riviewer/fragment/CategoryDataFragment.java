@@ -81,17 +81,21 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+	super.onPrepareOptionsMenu(menu);
+	menu.findItem(R.id.reddit).setVisible(currentImageIndex < imagesCurrent.size());
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 	switch (item.getItemId()) {
 	case R.id.subreddit:
 	    subredditSelector.show(getFragmentManager(), "dialog");
 	    return true;
 	case R.id.reddit:
-	    if (currentImageIndex < images.size()) {
-		Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com"
-			+ getImage().getPermalink()));
-		startActivity(viewIntent);
-	    }
+	    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.reddit.com"
+		    + getImage().getPermalink()));
+	    startActivity(viewIntent);
 	    return true;
 	case R.id.preferences:
 	    Intent preferencesIntent = new Intent(getActivity(), EditPreferencesActivity.class);
