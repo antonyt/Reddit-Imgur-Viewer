@@ -112,7 +112,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 
     @Override
     public void onLoadFinished(Loader<Category> loader, Category data) {
-	Log.d("ViewerActivity", "onLoadFinished ");
+	Log.d("CategoryDataFragment", "onLoadFinished ");
 	boolean firstTime = imagesCurrent.size() == 0;
 	if (firstTime) {
 	    loadingDialog.dismiss();
@@ -168,7 +168,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 	    loadInProgress = true;
 	    currentPage++;
 	    getLoaderManager().restartLoader(0, null, this);
-	    Log.d("CategoryFragment", "LOADING ANOTHER PAGE!!");
+	    Log.d("CategoryDataFragment", "LOADING ANOTHER PAGE!!");
 	}
 
 	currentImageIndex++;
