@@ -195,7 +195,7 @@ public class CategoryDataFragment extends Fragment implements LoaderCallbacks<Ca
 
     @Override
     public void subredditSelected(String subreddit) {
-	if (this.subreddit.equals(subreddit)) {
+	if (this.subreddit.equals(subreddit) && imagesCurrent.size() > 0) {
 	    return;
 	}
 
