@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -35,11 +36,13 @@ public class ImageWebView extends RelativeLayout {
 	webview.setBackgroundColor(Color.BLACK);
 	webview.getSettings().setBuiltInZoomControls(true);
 	webview.getSettings().setJavaScriptEnabled(true);
+	webview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 	webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 	webview.addJavascriptInterface(new JavascriptInterface(), JAVASCRIPT_INTERFACE);
 
 	webview.loadUrl(TEMPLATE_URL);
 
+	
 	DisplayMetrics dm = new DisplayMetrics();
 	WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 	windowManager.getDefaultDisplay().getMetrics(dm);
