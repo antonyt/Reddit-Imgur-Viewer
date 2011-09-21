@@ -11,7 +11,6 @@ import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
 
-
 public class GzipHttpClient extends DefaultHttpClient {
     public GzipHttpClient() {
 	addRequestInterceptor(new HttpRequestInterceptor() {
@@ -30,7 +29,6 @@ public class GzipHttpClient extends DefaultHttpClient {
 		Header encoding = response.getFirstHeader("Content-Encoding");
 		if (encoding != null && "gzip".equalsIgnoreCase(encoding.getValue())) {
 		    response.setEntity(new GzipEntity(response.getEntity()));
-		    ;
 		}
 	    }
 	});
